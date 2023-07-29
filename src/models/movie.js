@@ -12,10 +12,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.CinemaMovie , {
+      this.belongsToMany(models.Cinema , {
         through : "CinemaMovie",
         uniqueKey : "cinemaId_movieId"
       })
+      this.belongsToMany(models.City , {
+        through : "CityMovie",
+        uniqueKey : "cityId_movieId"
+      })
+      this.hasMany(models.Show,{
+        foreignKey : "movieId"
+      });
       
     }
   }
@@ -32,6 +39,15 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.FLOAT,
       defaultValue : 0,
     },
+    duration:{
+      type : DataTypes.INTEGER,
+      allowNull : false
+    },
+    director :{
+      type : DataTypes.STRING,
+      allowNull : false
+    },
+    
     genre: {
       type : DataTypes.STRING,
       allowNull : false

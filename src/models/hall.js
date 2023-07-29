@@ -19,6 +19,16 @@ module.exports = (sequelize, DataTypes) => {
         onDelete : "CASCADE",
         onUpdate : "CASCADE"
       });
+      this.hasMany(models.Show, {
+        foreignKey : "hallId",
+        onDelete : "CASCADE",
+        onUpdate : "CASCADE"
+      });
+      this.hasMany(models.Show_seat, {
+        foreignKey : "hallId",
+        onDelete : "CASCADE",
+        onUpdate : "CASCADE"
+      });
     }
   }
   Hall.init({

@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     seatNumber: {
       type : DataTypes.STRING,
       allowNull : false,
-      unique : true,
     },
     seatType: {
       type : DataTypes.STRING,
@@ -44,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
     columnNo: {
       type : DataTypes.INTEGER,
       allowNull : false
-    }
+    },
+
   }, {
     sequelize,
     modelName: 'Seat',

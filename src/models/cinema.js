@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.City, {
-        foreignKey : "cityName",
+        foreignKey : "cityId",
         onDelete : "CASCADE",
         onUpdate : "CASCADE"
       });
@@ -23,9 +23,12 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Address, {
         foreignKey : "cinemaId",
       });
-      this.belongsToMany(models.cinemaMovie, {
+      this.belongsToMany(models.Movie, {
         through : "CinemaMovie",
-        uniqueKey : "cinemaId_movieId",
+        uniqueKey : "cinemaId_movieId"
+      })
+      this.hasMany(models.Show,{
+        foreignKey : "cinemaId"
       })
     }
   }
@@ -34,8 +37,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    cityName: {
+    branchCode:{
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    cityId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   }, {

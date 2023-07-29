@@ -14,7 +14,7 @@ module.exports = {
       seatNumber: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique : true
       },
       seatType: {
         type: Sequelize.ENUM,
