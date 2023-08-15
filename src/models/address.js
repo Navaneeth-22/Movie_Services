@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Cinema, {
-        foreignKey : "cinemaId",
+        foreignKey : "cinema_id",
         onDelete : "CASCADE",
         onUpdate : "CASCADE"
       });
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Address.init({
-    cinemaId: {
+    cinema_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },

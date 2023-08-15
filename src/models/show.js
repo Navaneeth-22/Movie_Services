@@ -23,16 +23,22 @@ module.exports = (sequelize, DataTypes) => {
         onDelete : "CASCADE",
         onUpdate : "CASCADE"
       });
+      this.belongsTo(models.City, {
+        foreignKey : "cityName",
+        onDelete : "CASCADE",
+        onUpdate : "CASCADE"
+      });
       this.belongsTo(models.Movie, {
         foreignKey : "movieId",
         onDelete : "CASCADE",
         onUpdate : "CASCADE"
       });
-      this.hasMany(models.Show_seat, {
+      this.hasMany(models.Show_seats, {
         foreignKey : "showId",
         onDelete : "CASCADE",
         onUpdate : "CASCADE"
       });
+
     }
   }
   Show.init({
@@ -46,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     cinemaId: {
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    cityName: {
+      type: DataTypes.STRING,
       allowNull: false
     },
     hallId: {
@@ -62,8 +72,6 @@ module.exports = (sequelize, DataTypes) => {
       values  : [UPCOMING,RUNNING,FINISHED,CANCELLED],
       defaultValue : UPCOMING
     },
-
-
   }, {
     sequelize,
     modelName: 'Show',

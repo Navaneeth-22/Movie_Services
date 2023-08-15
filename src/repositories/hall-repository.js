@@ -9,6 +9,7 @@ class HallRepository extends CrudRepository{
     async addSeats(hallId,seats){
         try {
             const hall = await this.model.findByPk(hallId);
+            // console.log("fjkfkf",seats)
             const response = await hall.createSeat(seats);
             return response;
         } catch (error) {

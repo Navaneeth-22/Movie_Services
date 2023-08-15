@@ -15,7 +15,7 @@ module.exports = {
         references: {
           model: 'Cinemas',
           key: 'id',
-          as: 'cinema_id'
+          as: 'cinemaId'
         },
         onUpdate : "CASCADE",
         onDelete : "CASCADE"

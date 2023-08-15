@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Hall, {
         foreignKey : "cinemaId",
       });
-      this.hasMany(models.Address, {
+      this.hasOne(models.Address, {
         foreignKey : "cinemaId",
       });
       this.belongsToMany(models.Movie, {

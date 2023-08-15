@@ -42,6 +42,17 @@ module.exports = {
         onUpdate : "CASCADE",
         onDelete : "CASCADE",
       },
+      cityName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        references: {
+          model: 'Cities',
+          key: 'name',
+          as: 'cityName'
+        },
+        onUpdate : "CASCADE",
+        onDelete : "CASCADE",
+      },
       movieId: {
         type: Sequelize.INTEGER,
         allowNull: false,

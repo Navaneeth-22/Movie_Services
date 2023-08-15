@@ -22,6 +22,23 @@ async function createCinema(data){
     }
 }
 
+async function getCinemaById(id){
+    try {
+        const response = await cinemaRepository.findById(id);
+        return response;
+    } catch (error) {
+        throw new AppError('Server not able to get city', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+async function getCinemasByCity(cityId){
+    try {
+        const response = await cinemaRepository.getCinemasByCity(cityId);
+        return response;
+    } catch (error) {
+        throw new AppError('Server not able to fetch all cinemas in this city',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 async function getAllCinemas(){
     try {
         const response = await cinemaRepository.findAll();
@@ -62,10 +79,12 @@ async function addMovie(cinemaId,movieId){
 }
 
 
+
 module.exports = {
     createCinema,
     getAllCinemas,
     updateCinema,
     deleteCinema,
-    addMovie
+    addMovie,
+    getCinemasByCity
 }

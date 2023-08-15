@@ -1,10 +1,17 @@
 const { LoggerConfig } = require('../config');
 const {HallRepository} = require('../repositories');
+const { AppError } = require('../utils');
+const {StatusCodes} = require('http-status-codes');
 
 const hallRepository = new HallRepository();
 
 async function createHall(data){
-    return await hallRepository.create(data);
+    try {
+        console.log(data)
+        return await hallRepository.create(data);
+    } catch (error) {
+        throw new AppError('Server not able to create hall', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
 }
 
 async function getAllHalls(){

@@ -1,14 +1,13 @@
-const {CinemaService} = require("../services");
-const {LoggerConfig} = require("../config")
+const {ShowSeatService} = require('../services');
 const {SuccessResponse,ErrorResponse} = require("../utils/common");
 const {StatusCodes} = require("http-status-codes")
 
-async function createCinema(req, res, next) {
+async function createShowSeats(req, res, next) {
     try {
-        const response = await CinemaService.createCinema({
-            name : req.body.name,
-            branchCode : req.body.branchCode,
-            cityId : req.body.cityId
+        const response = await ShowSeatService.createShowSeats({
+            showId : +req.body.showId,
+            hallId : +req.body.hallId,
+            price : +req.body.price,
         });
         SuccessResponse.data = response;
         return res
@@ -22,42 +21,10 @@ async function createCinema(req, res, next) {
     }
 }
 
-async function getCinemas(req, res, next) {
+async function getShowSeatsFiltered(req, res, next) {
     try {
-        const response = await CinemaService.getCinemas();
-        SuccessResponse.data = response;
-        return res
-                .status(StatusCodes.OK)
-                .json(SuccessResponse);
-        
-    } catch (error) {
-        ErrorResponse.error = error;
-        return res
-                .status(error.statusCode)
-                .json(ErrorResponse);
-    }
-}
-
-async function getCinemasByCity(req,res){
-    try {
-        const response = await CinemaService.getCinemasByCity(
-            cityId = req.body.cityId
-        )
-        SuccessResponse.data = response;
-        return res
-            .status(StatusCodes.OK)
-            .json(SuccessResponse);
-    } catch (error) {
-        ErrorResponse.error = error;
-        return res
-                .status(error.statusCode)
-                .json(ErrorResponse);
-    }
-}
-
-async function deleteCinema(req, res, next) {
-    try {
-        const response = await CinemaService.deleteCinema(req.params.id);
+        console.log(req.query)
+        const response = await ShowSeatService.getShowSeatsFiltered(req.query);
         SuccessResponse.data = response;
         return res
                 .status(StatusCodes.OK)
@@ -70,14 +37,38 @@ async function deleteCinema(req, res, next) {
     }
 }
 
-async function addMovie(req, res, next) {
+async function getShowSeats(req, res, next) {
     try {
-        const response = await CinemaService.addMovie(req.params.id,req.body.movieId);
+        console.log(req.params)
+        const response = await ShowSeatService.getShowSeats({
+            showId : +req.params.showId,
+        });
         SuccessResponse.data = response;
         return res
                 .status(StatusCodes.OK)
                 .json(SuccessResponse);
     } catch (error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}       
+
+async function updateShowSeats(req, res, next) {
+    try {
+        console.log(req.query)
+        const response = await ShowSeatService.updateShowSeats({
+            showSeatIds : req.query.seatIds.map((id) => +id),
+            status : req.query.status,
+        });
+
+        SuccessResponse.data = response;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch (error) {
+        console.log("djjdjd",error)
         ErrorResponse.error = error;
         return res
                 .status(error.statusCode)
@@ -86,9 +77,9 @@ async function addMovie(req, res, next) {
 }
 
 module.exports = {
-    getCinemas,
-    createCinema,
-    deleteCinema,
-    addMovie,
-    getCinemasByCity
+    createShowSeats,
+    getShowSeats,
+    updateShowSeats,
+    getShowSeatsFiltered
 }
+

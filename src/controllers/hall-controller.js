@@ -14,7 +14,8 @@ async function createHall(req, res, next) {
         console.log(req.body);
         const response = await HallService.createHall({
             HallName : req.body.HallName,
-            seatCount : req.body.seatCount
+            seatCount : req.body.seatCount,
+            cinemaId : +req.body.cinemaId
         });
         res.send(response);
     } catch (error) {
@@ -48,7 +49,7 @@ async function addSeats(req, res, next) {
             seatNumber : req.body.seatNumber,
             seatType : req.body.seatType,
             row : req.body.row,
-            columnNo : req.body.columnNo
+            columnNo : +req.body.columnNo
         });
         res.send(response);
     } catch (error) {
